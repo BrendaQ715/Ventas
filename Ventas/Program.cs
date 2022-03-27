@@ -27,20 +27,23 @@ namespace Ventas
             //LeerDocumento();
             Menu();
             CrearCompra();
+            RegistroCompra();
          
            
 
 
         }
         static void Menu()
-        { byte opcion;
+        { byte  opcion;
             opcion = 0;
-
-                do
+           
+            do
                 {
+                Console.WriteLine("---------------PRODUCTOS E INPORTACIONES---------------");
                     Console.WriteLine("Menu de opciones ");
-                    Console.WriteLine("1. Registro de ventas ");
-                    Console.WriteLine("2.Salir");
+                    Console.WriteLine("1. Venta nueva  ");
+                    Console.WriteLine("2. Registro de ventas ");    
+                    Console.WriteLine("3.Salir");
                     Console.WriteLine("Que  opcion deseas realizar...");
                     opcion=Convert.ToByte(Console.ReadLine());
                     switch (opcion)
@@ -49,8 +52,12 @@ namespace Ventas
                         CrearCompra();
 
                             break;
-                        
-                        case 2:
+                    case 2:
+                        RegistroCompra();
+
+                        break;
+
+                    case 3:
                             Console.WriteLine("-------Operacion finalizada-------");
                             break;
                             default:
@@ -66,39 +73,67 @@ namespace Ventas
         
         
         }
-        
+
         public static void CrearCompra()
         {
-           
+
             StreamWriter venta;
 
 
-            string ventas = "C:\\Users\\qbren\\Documents\\Ventas\\registroventas.txt";
+            string ventas = "C:\\Users\\qbren\\Documents\\Ventas\\Registroventas.txt"  ;
 
             venta = File.AppendText(ventas);
             venta.WriteLine();
 
-            
-          
-                Console.WriteLine("Ingresa n° de cliente");
-                Nocliente = Convert.ToInt32(Console.ReadLine());
-                Console.WriteLine("Nombre del producto");
-                NombreProducto = Console.ReadLine();
+           
+            Console.WriteLine("Ingresa n° de cliente");
+            Nocliente = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Nombre del producto");
+            NombreProducto = Console.ReadLine();
 
-                Console.WriteLine("Cantidad de productos");
-                cantidad = Convert.ToInt32(Console.ReadLine());
-                Console.WriteLine("precio de los productos");
-                precio=Convert.ToDouble(Console.ReadLine()); 
+            Console.WriteLine("Cantidad de productos");
+            cantidad = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("precio de los productos");
+            precio = Convert.ToDouble(Console.ReadLine());
 
             total = precio * cantidad;
-                Console.WriteLine("El total de la compra es de:"+total);
-                
-                
-                 venta.WriteLine(Nocliente + "," + NombreProducto + "," + cantidad + "," + precio + "," + total + ",");
+            Console.WriteLine("El total de la compra es de:" + total);
+
+
+            venta.WriteLine("NoCliente:" + Nocliente
+                + "Producto:" + NombreProducto 
+                + "Cantidad de productos:" + cantidad 
+                + "$"+precio  +
+                " Total:"+"$" + total );
                 Console.WriteLine("Registro de venta relizado...");
 
 
             venta.Close();
+        }
+        public static void RegistroCompra()
+        {
+            Console.WriteLine("Fecha:");
+            DateTime fecha = DateTime.Parse(Console.ReadLine());
+            Console.WriteLine("----------"+DateTime.Now.ToShortDateString());
+
+
+            StreamReader venta;
+            string ventas = "C:\\Users\\qbren\\Documents\\Ventas\\Registroventas.txt"  ;
+            string linea;
+            venta = File.OpenText(ventas);
+            do
+            {
+                linea = venta.ReadLine();
+                Console.WriteLine(linea);
+            }
+            while
+            
+                (linea != null);
+            venta.Close();
+            Console.WriteLine();
+            
+            
+
         }
 
     
